@@ -49,11 +49,9 @@ app.post('/notification_handler', function(req, res){
 
       let summary = `Transaction notification received. Order ID: ${orderId}. Transaction status: ${transactionStatus}. Fraud status: ${fraudStatus}.<br>Raw notification object:<pre>${JSON.stringify(transactionStatusObject, null, 2)}</pre>`;
 
-      // [5.B] Handle transaction status on your backend via notification alternatively
-      // Sample transactionStatus handling logic
+
       if (transactionStatus == 'capture'){
           if (fraudStatus == 'challenge'){
-              // TODO set transaction status on your databaase to 'challenge'
               const data = {
                 data: {
                   attributes: {
@@ -104,10 +102,6 @@ app.post('/notification_handler', function(req, res){
                 });
           }
       } else if (transactionStatus == 'settlement'){
-        // TODO set transaction status on your databaase to 'success'
-        // Note: Non-card transaction will become 'settlement' on payment success
-        // Card transaction will also become 'settlement' D+1, which you can ignore
-        // because most of the time 'capture' is enough to be considered as success
         const data = {
           data: {
             attributes: {
